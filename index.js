@@ -1,12 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import sequelize from './database.js';
-import User from './models/User.js'; 
+import User from './models/User.js';
 import routes from './routes/auth.js';
 import jwt_token from './routes/jwt_token.js';
 
 const app = express();
-
 
 // Middleware para permitir CORS
 app.use((req, res, next) => {
@@ -42,8 +41,3 @@ sequelize.sync({ force: false })
   .catch((error) => {
     console.error('Error al sincronizar los modelos:', error);
   });
-
-
-
-
-

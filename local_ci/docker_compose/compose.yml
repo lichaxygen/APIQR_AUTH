@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  server:
+    container_name: server
+    image: node:20-alpine
+    working_dir: /usr/src/app
+    volumes:
+      - ../:/usr/src/app
+    ports:
+      - "3000:3000"
+    command: npm run node:dev
+
+  database:
+    container_name: database
+    image: mysql:latest 
+    ports:
+      - "3306:3306"
+
+ #   environment:
+ #    MYSQL_ROOT_PASSWORD: root_pass
+ #     MYSQL_DATABASE: db_name
+ #     MYSQL_USER: user
+ #     MYSQL_PASSWORD: user_pass
+
+    env_file:
+      - ../.env
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:

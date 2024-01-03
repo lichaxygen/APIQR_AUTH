@@ -4,8 +4,9 @@
 ## type_key (API|APP)
 
 # Crea un token
-POST https://localhost:3000/token/generate-token
+POST http://localhost:3000/token/generate-token
 Content-Type: application/json
+
 {
   "username":"licha",
   "password":"lichinho",
@@ -13,8 +14,9 @@ Content-Type: application/json
 }
 
 # Intenta crear un token pero con valores incorrectos
-POST https://localhost:3000/token/generate-token
+POST http://localhost:3000/token/generate-token
 Content-Type: application/json
+
 {
   "username": 2020,
   "password": 10,
@@ -22,8 +24,9 @@ Content-Type: application/json
 }
 
 # Intenta crear un token 
-POST https://localhost:3000/token/generate-token
+POST http://localhost:3000/token/generate-token
 Content-Type: application/json
+
 {
   "username":"licha",
   "password":"lichinho",

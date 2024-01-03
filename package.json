@@ -4,10 +4,10 @@
   "description": "API generacion de token",
   "main": "index.js",
   "scripts": {
-    "dev:node": "nodemon run index.js",
-    "lint:node": "node run oxlint",
-    "lint:bun": "bun run oxlint",
-    "dev:bun": "bun run --hot index.js"
+    "node:dev": "nodemon run index.js",
+    "node:lint": "node run oxlint",
+    "bun:lint": "bun run oxlint",
+    "bun:dev": "bun run --hot index.js"
   },
   "author": "Xygen.io",
   "license": "ISC",

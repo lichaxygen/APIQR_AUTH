@@ -8,35 +8,48 @@ import { validate_token } from "../schemas/token.js";
 */
 
 export let createToken = async (req, res) => {
-  const token = validate_token(req.body);
+  const validatedToken = validate_token(req.body);
 
-  if(token.error){
+  if(validatedToken.error){
     return res.status(400).json(
-      {error: token.error.message }
+      {error: validatedToken.error.message }
     )
   }
 
   try {
+    
+    const {username, password, type_key} = validatedToken;
+
     const user = await User.findOne(
-      { where: { UserAPIUser: token.username, UserAPIPass: token.password } }
+      { 
+      where: 
+        {  UserAPIUser: username,
+           UserAPIPass: password } }
       );
 
     if (!user) {
-      return res.status(401).json({ error: 'Credenciales inválidas' });
+      return res.status(401).json(
+        { error: 'Invalid credentials' }
+        );
     }
+
     const IdUser = user.IdUser;
     const token = jwt.sign(
-      { IdUser, tipoKey },
+      { IdUser, type_key },
       'secreto',
-      { expiresIn: '1h' });
+      { expiresIn: '1h' }
+    );
 
-    await Tokens.create({ IdUser, tipoKey, token });
+    await Tokens.create(
+      { IdUser, tipoKey, token: accessToken }
+      );
+    
     res.status(200).json({ token });
-
+  
   } catch (error) {
     
     console.error('Error:', error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+    res.status(500).json({ error: 'Internal server error.' });
   
   }
 
