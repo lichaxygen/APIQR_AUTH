@@ -1,8 +1,8 @@
-import User from "../models/User.js";
 import { validate_token } from "../schemas/token.js";
-import jwt from 'jsonwebtoken';
+import Token from "../models/Token.js";
+import User from "../models/User.js";
 import config from "../config.js";
-
+import jwt from 'jsonwebtoken';
 /*
   Uso 'zod' porque se lo vi a un flaco en yt - https://www.youtube.com/watch?v=j81EEYSh3hQ&ab_channel=MonsterlessonsAcademy -
   zod me permite poder tener validaciones de tipos de datos en la api en runtime y esto me da la posibilidad de si me pasan algo erroneo 

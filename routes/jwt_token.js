@@ -1,5 +1,6 @@
 import express from 'express'
-import { createToken } from '../controllers/jwtController.js';
+import { createToken } from '../controllers/createJWTToken.js';
+import { }
 
 let jwt_token = express.Router()
 
