@@ -24,7 +24,7 @@ services:
  #     MYSQL_PASSWORD: user_pass
 
     env_file:
-      - ../.env
+      - ../../.env
 
     volumes:
       - mysql-data:/var/lib/mysql

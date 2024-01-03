@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import sequelize from './database.js';
-import User from './models/User.js';
 import routes from './routes/auth.js';
 import jwt_token from './routes/jwt_token.js';
 
@@ -19,8 +18,8 @@ app.use(cors());
 app.disable('x-powered-by')
 
 // Configuración de Express
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Rutas de la API
 app.use('/api', routes);

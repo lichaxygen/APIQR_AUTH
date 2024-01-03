@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import { validate_token } from "../schemas/token.js";
+import jwt from 'jsonwebtoken';
 
 /*
   Uso 'zod' porque se lo vi a un flaco en yt - https://www.youtube.com/watch?v=j81EEYSh3hQ&ab_channel=MonsterlessonsAcademy -
@@ -9,22 +10,26 @@ import { validate_token } from "../schemas/token.js";
 
 export let createToken = async (req, res) => {
   const validatedToken = validate_token(req.body);
-
+  console.log(validatedToken);
   if(validatedToken.error){
     return res.status(400).json(
-      {error: validatedToken.error.message }
+      {error: validatedToken.error.errors }
     )
   }
 
   try {
-    
-    const {username, password, type_key} = validatedToken;
-
+    console.log(validatedToken.data)
+    const {
+      username: req_username, 
+      password:req_password, 
+      token_type:req_token} = validatedToken.data;
     const user = await User.findOne(
       { 
-      where: 
-        {  UserAPIUser: username,
-           UserAPIPass: password } }
+        where: {
+          username: req_username,
+          password: req_password
+        }
+      }
       );
 
     if (!user) {
@@ -33,15 +38,15 @@ export let createToken = async (req, res) => {
         );
     }
 
-    const IdUser = user.IdUser;
+    const id_user = user.id;
     const token = jwt.sign(
-      { IdUser, type_key },
+      { id_user, req_token },
       'secreto',
       { expiresIn: '1h' }
     );
 
     await Tokens.create(
-      { IdUser, tipoKey, token: accessToken }
+      { id_user, req_token, token: accessToken }
       );
     
     res.status(200).json({ token });
