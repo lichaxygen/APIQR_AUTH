@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import { validate_token } from "../schemas/token.js";
 import jwt from 'jsonwebtoken';
+import config from "../config.js";
 
 /*
   Uso 'zod' porque se lo vi a un flaco en yt - https://www.youtube.com/watch?v=j81EEYSh3hQ&ab_channel=MonsterlessonsAcademy -
@@ -41,12 +42,20 @@ export let createToken = async (req, res) => {
     const id_user = user.id;
     const token = jwt.sign(
       { id_user, req_token },
-      'secreto',
-      { expiresIn: '1h' }
+      config.jwt_token_secret,
+      { 'expiresIn': "1d"}
     );
-
-    await Tokens.create(
-      { id_user, req_token, token: accessToken }
+    const date = new Date();
+    const token_expire_date = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()+1}`;
+    
+    await Token.create(
+      { 
+        id_user,
+        req_username,
+        token,
+        req_token,
+        token_expire_date
+      }
       );
     
     res.status(200).json({ token });

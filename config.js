@@ -8,6 +8,7 @@ export const config = {
   password: process.env.DB_PASSWORD,
   host: process.env.HOST,
   dialect: process.env.DIALECT,
+  jwt_token_secret: process.env.SECRET_JWT
 };
 
 export default config;
