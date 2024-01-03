@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 
 // Configuración de CORS
 app.use(cors());
-app.disable('')
+app.disable('x-powered-by')
 
 // Configuración de Express
 app.use(express.json());
