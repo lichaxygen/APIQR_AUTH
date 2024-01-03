@@ -4,6 +4,7 @@
   "description": "API generacion de token",
   "main": "index.js",
   "scripts": {
+    "dev": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Xygen.io",
@@ -16,6 +17,9 @@
     "jsonwebtoken": "^9.0.1",
     "mysql2": "^3.5.1",
     "sequelize": "^6.32.1"
+  },
+  "devDependencies": {
+    
   },
   "type": "module"
 }

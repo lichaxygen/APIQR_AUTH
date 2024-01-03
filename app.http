@@ -1,0 +1,1 @@
+GET https://localhost:3000/token/generate-token?=user_api=licha&password_api=licha0008&type_key=API
