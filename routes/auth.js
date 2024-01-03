@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import routerUser from '../models/User.js';
 import { config } from '../config.js';
+import validateToken from '../middleware/validateJWTToken.js';
 
 const router = express.Router();
 
@@ -31,7 +32,10 @@ router.post('/login', async (req, res) => {
     if (!passwordMatch) {
       return res.status(401).json({ message: 'Nombre de usuario o contraseña incorrectos.' });
     }
-    const token = jwt.sign({ id: user.id }, config.jwtSecret, { expiresIn: '1h' });
+    const token = jwt.sign(
+      { id: user.id }, 
+      config.jwt_token_secret,
+      { expiresIn: '1h' });
     res.status(200).json({ token });
   } catch (error) {
     console.error(error);

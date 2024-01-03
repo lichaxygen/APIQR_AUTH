@@ -3,6 +3,7 @@ import cors from 'cors';
 import sequelize from './database.js';
 import routes from './routes/auth.js';
 import jwt_token from './routes/jwt_token.js';
+import validateToken from './middleware/validateJWTToken.js';
 
 const app = express();
 
@@ -22,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Rutas de la API
-app.use('/api', routes);
+app.use('/api',routes);
 app.use('/token', jwt_token);
 
 /* sequelize.authenticate(); */

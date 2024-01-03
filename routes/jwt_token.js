@@ -1,6 +1,5 @@
 import express from 'express'
 import { createToken } from '../controllers/createJWTToken.js';
-import { }
 
 let jwt_token = express.Router()
 
@@ -10,6 +9,13 @@ jwt_token.post(
 );
 
 /*
+
+ qr_gen.get(
+  'generate-qr/',
+  validateToken,
+  generateQR
+ )
+
  jwt_token.get(
   '/my-tokens/:id',
   getToken

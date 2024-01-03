@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   server:
+  # este es el servidor de node/express
     container_name: server
     image: node:20-alpine
     working_dir: /usr/src/app
@@ -11,6 +12,7 @@ services:
       - "3000:3000"
     command: npm run node:dev
 
+ # este es mysql
   database:
     container_name: database
     image: mysql:latest 

@@ -17,7 +17,7 @@ z.object({
   required_error: "JSON is required"
 });
 
-export function validate_token(object){
+export function validate_body(object){
   return tokenSchema.safeParse(object);
 }
 
