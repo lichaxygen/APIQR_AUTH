@@ -1,0 +1,27 @@
+const { Pipeline, Container } = require('@dagger.io/sdk');
+
+const pipeline = new Pipeline();
+
+const mysqlContainer = new Container({
+  image: 'mysql:latest',
+  env: {
+    ...require('dotenv')
+    .config(
+      { path: '../../.env' }
+      )
+  }
+});
+
+const nodeContainer = new Container({
+  image: 'node:20-alpine',
+  workingDir: '../../',
+  command: [
+    '/bin/sh',
+    '-c',
+    `node run node:lint 
+    && node run node:test`
+  ]
+});
+
+pipeline.addContainers([mysqlContainer, nodeContainer]);
+module.exports = pipeline;
