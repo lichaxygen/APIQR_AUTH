@@ -4,8 +4,10 @@
   "description": "API generacion de token",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:node": "nodemon run index.js",
+    "lint:node": "node run oxlint",
+    "lint:bun": "bun run oxlint",
+    "dev:bun": "bun run --hot index.js"
   },
   "author": "Xygen.io",
   "license": "ISC",
@@ -14,9 +16,13 @@
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.1",
     "mysql2": "^3.5.1",
     "sequelize": "^6.32.1"
+  },
+  "devDependencies": {
+    "jsonwebtoken": "^9.0.1",
+    "oxlint": "^0.0.22",
+    "zod": "^3.22.4"
   },
   "type": "module"
 }
