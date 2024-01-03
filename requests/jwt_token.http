@@ -2,4 +2,14 @@
 ## username
 ## password
 ## type_key (API|APP)
-GET https://localhost:3000/token/generate-token?=user_api=licha&password_api=licha0008&type_key=API
+
+# Crea un token
+POST https://localhost:3000/token/generate-token
+Content-Type: application/json
+{
+  "username":"licha",
+  "password":"lichinho",
+  "token_type":"API"
+}
+
+

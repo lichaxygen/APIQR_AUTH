@@ -1,11 +1,11 @@
 import express from 'express'
+import { createToken } from '../controllers/jwtController.js';
 
 let jwt_token = express.Router()
 
-jwt_token.get(
-  "/generate-token", 
-  async(req, res)=>{
-    const {user_api, password_api, type_key} = req.query;
-    res.send(user_api, password_api, type_key);
-  });
+jwt_token.post(
+  "/generate-token",
+  createToken
+);
+
 export default jwt_token;
