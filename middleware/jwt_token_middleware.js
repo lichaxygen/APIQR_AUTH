@@ -1,5 +1,5 @@
-import Token from '../models/Token.js';
-import { validate_body } from '../schemas/validator.js'; 
+import Token from '../models/token.js';
+import { validate_body } from '../schemas/apiuser_validator.js'; 
 import jwt from 'jsonwebtoken';
 import config from "../config.js";
 
@@ -49,7 +49,7 @@ export const validateToken = async (req, res, next) => {
     console.log(token)
     jwt.verify(
       token,
-      "xygen.io_token",
+      config.jwt_token_secret,
      );
     } catch {
       res.status(500).send("Internal server error");

@@ -1,9 +1,9 @@
 import express from 'express';
 import cors from 'cors';
-import sequelize from './database.js';
-import routes from './routes/auth.js';
+import {sequelize, test_connection} from './models/database.js';
+import routes from './routes/users_api.js';
 import jwt_token from './routes/jwt_token.js';
-import validateToken from './middleware/validateJWTToken.js';
+import validateToken from './middleware/jwt_token_middleware.js';
 
 const app = express();
 
@@ -26,10 +26,9 @@ app.use(express.json());
 app.use('/api',routes);
 app.use('/token', jwt_token);
 
-/* sequelize.authenticate(); */
 
-// Sincronizar el modelo con la base de datos
-sequelize.sync({ force: false })
+test_connection();
+sequelize.sync({ force: true })
   .then(() => {
     console.log('Modelos sincronizados con la base de datos.');
     // Iniciar el servidor

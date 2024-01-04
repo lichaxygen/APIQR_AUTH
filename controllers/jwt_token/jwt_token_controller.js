@@ -1,8 +1,8 @@
-import { validate_body } from "../schemas/token.js";
-import Token from "../models/Token.js";
+import { validate_body } from "../../schemas/token_validator.js";
+import Token from "../../models/token.js";
 import bcrypt from 'bcrypt';
-import User from "../models/User.js";
-import config from "../config.js";
+import APIUser from "../../models/api_user.js";
+import config from "../../config.js";
 import jwt from 'jsonwebtoken';
 
 /*
@@ -33,7 +33,7 @@ export let createToken = async (req, res) => {
 
       
 
-     const user = await User.findOne(
+     const user = await APIUser.findOne(
       { 
         where: {
           username: req_username,
