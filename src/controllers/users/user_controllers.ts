@@ -1,4 +1,3 @@
-import User from "../../models/User.js";
 import { validate_body } from "../../schemas/user_validator.js"
 
 

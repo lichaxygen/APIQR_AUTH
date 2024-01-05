@@ -1,8 +1,6 @@
 import { validate_body } from "../../schemas/token_validator.js";
-import Token from "../../models/token.js";
 import bcrypt from 'bcrypt';
-import APIUser from "../../models/api_user.js";
-import config from "../../config.js";
+import config from "../../../config.js";
 import jwt from 'jsonwebtoken';
 
 /*

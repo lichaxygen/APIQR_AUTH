@@ -3,12 +3,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const config = {
-  database: process.env.DB_HOST,  
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
   host: process.env.HOST,
   dialect: process.env.DIALECT,
-  jwt_token_secret: process.env.SECRET_JWT
+  jwt_token_secret: process.env.SECRET_JWT,
+  port: process.env.PORT
 };
+
+export const db_config = {
+  connection_string: process.env.DATABASE_URL,
+}
 
 export default config;
