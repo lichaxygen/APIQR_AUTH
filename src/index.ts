@@ -5,6 +5,8 @@ import routes from './routes/users_api.ts';
 import jwt_token from './routes/jwt_token.ts';
 import admin from "firebase-admin";
 import serviceAccountKey from "../serviceAccountKey.json";
+import { qr_gen } from './routes/qr_gen.ts';
+
 
 admin.initializeApp({
   credential: admin.credential.cert(JSON.parse(JSON.stringify(serviceAccountKey))),
@@ -28,6 +30,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/qrcode', qr_gen);
 app.use('/api',routes);
 app.use('/token', jwt_token);
 app.listen(config.port, () => console.log('Server running on port 3000'));
