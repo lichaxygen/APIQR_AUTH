@@ -1,7 +1,10 @@
 import { validate_body } from "../../schemas/token_validator.js";
 import bcrypt from 'bcrypt';
 import config from "../../../config.js";
-import jwt from 'jsonwebtoken';
+import jwt, { Secret } from 'jsonwebtoken';
+import { selectUser } from "../../../models/queries/queries.js";
+import db from "../../../models/db.js";
+import { token } from "../../../models/schema.ts";
 
 /*
   Uso 'zod' porque se lo vi a un flaco en yt 
@@ -11,70 +14,58 @@ import jwt from 'jsonwebtoken';
 */
 
 export let createToken = async (req, res) => {
-  
+
   const validatedToken = validate_body(req.body);
   console.log(validatedToken);
 
-  if(validatedToken.error){
+  if (!validatedToken.success) {
     return res.status(400).json(
-      {error: validatedToken.error.errors }
+      { error: validatedToken.error.errors }
     )
   }
 
   try {
     console.log(validatedToken.data)
+
+    const { username: req_username,password: req_password, token_type: req_token } = validatedToken.data;
     
-    const {
-      username: req_username, 
-      password:req_password, 
-      token_type:req_token} = validatedToken.data;
 
-      
+    const user = (await selectUser(req_username))[0];
 
-     const user = await APIUser.findOne(
-      { 
-        where: {
-          username: req_username,
-        }
-      }
-      );
-      
     if (!user || !bcrypt.compare(req_password, user.password)) {
       return res.status(401).json(
         { error: 'Invalid credentials' }
-        );
+      );
     }
 
     const id_user = user.id;
-    const token = jwt.sign(
+    const tokenJWT = jwt.sign(
       // payload del token
       { id_user, req_token },
       // secreto para el token esta en .env
-      config.jwt_token_secret,
+      (config.jwt_token_secret as Secret),
       // expire date para que no se quede siempre el token
-      { 'expiresIn': "1d"}
+      { 'expiresIn': "1d" }
     );
     const date = new Date();
     // armo el date pero con +1 dia
-    const token_expire_date = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, '0')}-${(date.getDay()+1).toString().padStart(2, "0")}`;
-    console.log(token_expire_date)
-    
-    await Token.create(
-      { 
-        username: req_username,
-        token: token,
-        token_type:req_token,
-        token_expire_date: token_expire_date
-      }
-      );
+    const token_expire_date_txt = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${(date.getDay() + 1).toString().padStart(2, "0")}`;
+    const token_expire_date = new Date(token_expire_date_txt); 
+    await db.insert(token).values({
+      username: req_username,
+      token: tokenJWT,
+      token_type: req_token,
+      token_expire_date: token_expire_date,
+      api_user_id: id_user
+    }).execute();
 
-      res.status(200).json({ token });
-  
+    res.status(200).json({ tokenJWT });
+
   } catch (error) {
-    
+
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error.' });
-  
+
   }
 
 }

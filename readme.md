@@ -28,6 +28,9 @@ POSTGRES_DB=postgres
 POSTGRES_PASSWORD=postgres
 
 NODE_ENV=development
+DOMAIN_PAGE=localhost
 ```
+
+la variable de DOMAIN_PAGE es donde esta hosteada la aplicación de React
 
 si se esta usando el testing de EJS para los auth se tiene que cambiar el NODE_ENV a testing

@@ -10,9 +10,14 @@ router.post('/register', async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    try{
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+    } catch(err) {
+      console.log(err);
+    }
     
-     await insertApiUser(username, hashedPassword); 
+    // await insertApiUser(username, hashedPassword); 
 
     res.status(201).json({ message: 'User created successfully.' });
   
