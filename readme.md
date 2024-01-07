@@ -17,3 +17,17 @@ cd APIQR_AUTH
 npm install // o cualquier otro package manager como puede ser 'bun' 
 ```
 
+## Variables Env
+```
+PORT=3000
+SECRET_JWT=xygen.io_cool_jwt
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres
+
+POSTGRES_USER=postgres
+POSTGRES_DB=postgres
+POSTGRES_PASSWORD=postgres
+
+NODE_ENV=development
+```
+
+si se esta usando el testing de EJS para los auth se tiene que cambiar el NODE_ENV a testing
