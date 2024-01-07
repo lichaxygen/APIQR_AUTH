@@ -23,12 +23,12 @@ export async function selectUser(username: string): Promise<{id: number, passwor
   return result;
 }
 
-export async function searchTokenByUsername(username: string): Promise<string> {
+export async function searchTokenByUsername(username: string): Promise<{token: string, username: string}> {
   const result = await db
-    .select({ token: token.token })
+    .select({ token: token.token, username: token.username })
     .from(token)
     .where(eq(token.username, username))
     .limit(1)
     .execute();
-  return result[0].token;
+  return result[0];
 }

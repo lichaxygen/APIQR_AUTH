@@ -1,6 +1,7 @@
 import { validate_body } from '../schemas/apiuser_validator.js'; 
 import { searchTokenByUsername } from "../../models/queries/queries.js";
-import jwt from 'jsonwebtoken';
+import jwt, { Jwt, Secret } from 'jsonwebtoken';
+import config from '../../config.js';
 
 export const validateToken = async (req, res, next) => {
   let body = validate_body(req.body)
@@ -39,10 +40,7 @@ export const validateToken = async (req, res, next) => {
     // verifico el token y veo el payload
     console.clear()
     console.log(token)
-    jwt.verify(
-      token,
-      config.jwt_token_secret,
-     );
+    jwt.verify(token,(config.jwt_token_secret as Secret));
     } catch {
       res.status(500).send("Internal server error");
     }
