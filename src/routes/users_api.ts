@@ -1,6 +1,6 @@
 import express from 'express';
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import jwt, { Secret } from "jsonwebtoken";
 import config from '../../config.js';
 import { insertApiUser, insertToken } from '../../models/queries/queries.ts';
 
@@ -10,17 +10,11 @@ router.post('/register', async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    try{
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password, salt);
-    } catch(err) {
-      console.log(err);
-    }
+    const hashedPassword = bcrypt.hashSync(password, 10);
     
-    // await insertApiUser(username, hashedPassword); 
-
-    res.status(201).json({ message: 'User created successfully.' });
-  
+    await insertApiUser(username, hashedPassword).then(
+      ()=>res.status(201).json({ message: 'User created successfully.' })
+    ).catch(err=>new Error("Error: error while making the insert api user query\n", err))
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error.' });
@@ -41,7 +35,7 @@ router.post('/login', async (req, res) => {
   
     const tokenValue = jwt.sign(
       { id:data[0].id }, 
-      config.jwt_token_secret,
+      (config.jwt_token_secret as Secret),
       { expiresIn: '1h' });
     
     await insertToken(username, tokenValue);
