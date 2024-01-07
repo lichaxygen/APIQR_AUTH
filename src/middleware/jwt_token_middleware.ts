@@ -1,17 +1,19 @@
-import { validate_body } from '../schemas/apiuser_validator.js'; 
+import { validate_body } from '../zod_validators/apiuser_validator.js'; 
 import { searchTokenByUsername } from "../../models/queries/queries.js";
 import jwt, { Jwt, Secret } from 'jsonwebtoken';
 import config from '../../config.js';
+import { NextFunction, Request, Response } from 'express';
 
-export const validateToken = async (req, res, next) => {
+export const validateToken = async (req: Request, res: Response, next: NextFunction) => {
   let body = validate_body(req.body)
   let body_info = body.data;
 
-  const token = req.headers.authorization.split(' ')[1];
-  const auth_header_type = req.headers.authorization.split(' ')[0];
+  const token = req.headers.authorization?.split(' ')[1];
+  const auth_header_type = req.headers.authorization?.split(' ')[0];
   
   if(body.error){
-    return res.status(400).json(
+    res.status(400)
+    .json(
       {error: body_info.error.errors }
     )
   }
