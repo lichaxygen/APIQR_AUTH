@@ -3,10 +3,13 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const config = {
-  host: process.env.HOST,
-  dialect: process.env.DIALECT,
   jwt_token_secret: process.env.SECRET_JWT,
-  port: process.env.PORT
+  port: process.env.PORT,
+
+  // oauth2 google 
+  id_client_google: process.env.CLIENT_ID_GOOGLE,
+  client_secret_google: process.env.CLIENT_SECRET_GOOGLE,
+  url_redirect_google: process.env.GOOGLE_REDIRECT_URL
 };
 
 export const db_config = {

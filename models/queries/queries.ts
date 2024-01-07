@@ -2,15 +2,15 @@ import { and, eq } from 'drizzle-orm';
 import db from '../db.ts';
 import { api_user, token } from '../schema.ts';
 
-async function insertApiUser(username: string, password: string): Promise<void> {
+export async function insertApiUser(username: string, password: string): Promise<void> {
   await db.insert(api_user).values({ username, password }).execute();
 }
 
-async function insertToken(username: string, tokenValue: string): Promise<void> {
+export async function insertToken(username: string, tokenValue: string): Promise<void> {
   await db.insert(token).values({ username, token: tokenValue }).execute();
 }
 
-async function selectUser(username: string): Promise<{id: number, password: string}[]> {
+export async function selectUser(username: string): Promise<{id: number, password: string}[]> {
   const result = await db
     .select({
       id: api_user.id,
@@ -23,7 +23,7 @@ async function selectUser(username: string): Promise<{id: number, password: stri
   return result;
 }
 
-async function searchTokenByUsername(username: string): Promise<string> {
+export async function searchTokenByUsername(username: string): Promise<string> {
   const result = await db
     .select({ token: token.token })
     .from(token)
@@ -32,5 +32,3 @@ async function searchTokenByUsername(username: string): Promise<string> {
     .execute();
   return result[0].token;
 }
-
-export { insertApiUser, insertToken }
