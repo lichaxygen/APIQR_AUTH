@@ -33,4 +33,4 @@ app.use((req, res, next) => {
 app.use('/qrcode', qr_gen);
 app.use('/api',routes);
 app.use('/token', jwt_token);
-app.listen(config.port, () => console.log('Server running on port 3000'));
+app.listen(config.port, () => console.log('Server running on port ' + config.port));
