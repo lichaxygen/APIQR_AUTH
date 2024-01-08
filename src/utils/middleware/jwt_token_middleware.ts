@@ -1,7 +1,7 @@
 import { validate_body } from '../zod_validators/apiuser_validator.js'; 
-import { searchTokenByUsername } from "../../models/queries/queries.js";
+import { searchTokenByUsername } from "../../../models/queries/queries.js";
 import jwt, { Jwt, Secret } from 'jsonwebtoken';
-import config from '../../config.js';
+import config from '../../../config.js';
 import { NextFunction, Request, Response } from 'express';
 
 export const validateToken = async (req: Request, res: Response, next: NextFunction) => {

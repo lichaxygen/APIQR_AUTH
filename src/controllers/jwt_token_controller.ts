@@ -1,10 +1,10 @@
-import { validate_body } from "../../zod_validators/token_validator.js";
+import { validate_body } from "../utils/zod_validators/token_validator.js";
 import bcrypt from 'bcrypt';
-import config from "../../../config.js";
+import config from "../../config.js";
 import jwt, { Secret } from 'jsonwebtoken';
-import { selectUser } from "../../../models/queries/queries.js";
-import db from "../../../models/db.js";
-import { token } from "../../../models/schema.ts";
+import { selectUser } from "../../models/queries/queries.js";
+import db from "../../models/db.js";
+import { token } from "../../models/schema.ts";
 
 /*
   Uso 'zod' porque se lo vi a un flaco en yt 

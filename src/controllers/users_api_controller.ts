@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
-import { insertApiUser, selectUser, insertToken } from "../../../models/queries/queries";
+import { insertApiUser, selectUser, insertToken } from "../../models/queries/queries";
 import jwt, { Secret } from "jsonwebtoken";
-import config from "../../../config";
-import { validate_body } from "../../zod_validators/token_validator";
+import config from "../../config";
+import { validate_body } from "../zod_validators/token_validator";
 
 async function createHash(password: string) : Promise<string> {
   const hashedPassword = await bcrypt.genSalt(10).then(salt=>{

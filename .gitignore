@@ -9,7 +9,7 @@ npm-debug.*
 web-build/
 .env
 .note
-
+profile.sh
 
 # macOS
 .DS_Store
