@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
+import { Request, Response, response } from "express";
 import bcrypt from 'bcrypt';
 import { insertApiUser, selectUser, insertToken } from "../../models/queries/queries";
 import jwt, { Secret } from "jsonwebtoken";
 import config from "../../config";
-import { validate_body } from "../zod_validators/token_validator";
+import { validate_body } from "../utils/zod_validators/token_validator";
 
 async function createHash(password: string) : Promise<string> {
   const hashedPassword = await bcrypt.genSalt(10).then(salt=>{
@@ -70,4 +70,16 @@ export async function userLogin(req: Request, res: Response) {
     console.error(error);
     res.status(500).json({ message: 'Server error.' });
   }
+}
+
+export async function userLoginProvider(req: Request, res: Response){
+  const {username, email} = req.body;
+
+  const data = await selectUser(username);
+  if(!data[0]){
+    await insertApiUser(username, email)
+    .catch(err=>new Error("Error: error while making the insert api user query\n", err));
+  }
+  // se tiene que responder con una cookie de authorization
+  res.status(200).send("Authorized!");
 }

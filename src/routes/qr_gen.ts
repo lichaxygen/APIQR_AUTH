@@ -1,5 +1,5 @@
 import express from "express";
-import { generateStaticQR } from "../controllers/qr_gen/qr_gen_controller";
+import { generateStaticQR } from '../controllers/qr_gen_controller';
 
 
 export const qr_gen = express.Router();
