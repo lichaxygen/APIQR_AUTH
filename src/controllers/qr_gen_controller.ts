@@ -27,6 +27,11 @@ export async function generateStaticQR(req: Request, res: Response) {
   });
 }
 export async function generateDynamicQR(req: Request, res: Response) {
-  // TODO
+  
+  // peticion -> url pasaje (consulta?) => url original
+  
+  // QR Dinamico
+
+
   res.send("TODO!");
 }

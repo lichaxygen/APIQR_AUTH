@@ -36,7 +36,6 @@ export async function userRegister (req: Request, res: Response) {
   }
 }
 
-
 export async function userLogin(req: Request, res: Response) {
   try {
 
@@ -71,6 +70,9 @@ export async function userLogin(req: Request, res: Response) {
     res.status(500).json({ message: 'Server error.' });
   }
 }
+
+// google - github
+// 
 
 export async function userLoginProvider(req: Request, res: Response){
   const {username, email} = req.body;

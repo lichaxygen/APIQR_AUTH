@@ -9,6 +9,8 @@
     "migration:generate": "drizzle-kit generate:pg --schema=./models/schema.ts",
     "migration:push": "bun run ./models/migrate.ts",
     "migration": "bun run migration:generate && bun run migration:push",
+    "build": "bunx tsx build src/index.ts",
+    "start": "bunx tsx start src/index.ts",
     "dev": "bunx tsx watch src/index.ts",
     "lint": "bun run oxlint"
   },

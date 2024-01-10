@@ -49,7 +49,8 @@ export let createToken = async (req, res) => {
     );
     const date = new Date();
     // armo el date pero con +1 dia
-    const token_expire_date_txt = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${(date.getDay() + 1).toString().padStart(2, "0")}`;
+    const token_expire_date_txt = date.setDate(date.getDate() + 1);
+
     const token_expire_date = new Date(token_expire_date_txt); 
     await db.insert(token).values({
       username: req_username,

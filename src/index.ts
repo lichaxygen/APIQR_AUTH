@@ -7,7 +7,6 @@ import admin from "firebase-admin";
 import serviceAccountKey from "../serviceAccountKey.json";
 import { qr_gen } from './routes/qr_gen.ts';
 
-
 admin.initializeApp({
   credential: admin.credential.cert(JSON.parse(JSON.stringify(serviceAccountKey))),
 });
@@ -33,4 +32,5 @@ app.use((req, res, next) => {
 app.use('/qrcode', qr_gen);
 app.use('/users',routes);
 app.use('/token', jwt_token);
+
 app.listen(config.port, () => console.log('Server running on port ' + config.port));

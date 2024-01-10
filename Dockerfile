@@ -1,4 +1,3 @@
-# Este dockerfile es solo para desarrollo
 FROM oven/bun:alpine
 LABEL "owner.name"="xygen.io"
 
