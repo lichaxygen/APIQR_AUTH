@@ -18,6 +18,6 @@ z.object(
   }
 )
 
-export function validate_body(object){
+export function validate_body(object: any): any{
   return validatorSchema.safeParse(object);
 }
